@@ -1,0 +1,5 @@
+{
+  "name": "scholarship-app",
+  "description": "Scholarship app with springboot hibernate and prostgresql",
+  "keywords": ["java", "spring", "spring-boot", "springboot", "gradle"]
+}
