@@ -1,5 +1,6 @@
 {
   "name": "scholarship-app",
   "description": "Scholarship app with springboot hibernate and prostgresql",
+  "repository": "https://github.com/Innovator007/ScholarshipApp",
   "keywords": ["java", "spring", "spring-boot", "springboot", "gradle"]
 }
