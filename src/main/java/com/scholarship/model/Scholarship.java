@@ -1,21 +1,27 @@
 package com.scholarship.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import java.io.Serializable;
 
 @Entity
 @Table(name="`scholarship`")
-public class Scholarship {
+public class Scholarship implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull
+    @Size(max = 100)
     private String title;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private int amount;
 
     public Scholarship() { }

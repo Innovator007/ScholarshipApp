@@ -1,23 +1,46 @@
 package com.scholarship.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import java.io.Serializable;
 
 @Entity
 @Table(name="`user`")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull
+    @Size(max = 65)
     private String name;
+
+    @NotNull
+    @Size(max = 25)
     private String username;
+
+    @NotNull
+    @Email
+    @Size(max = 100)
+    @Column(unique = true)
     private String email;
+
+    @NotNull
+    @Size(max = 20)
     private String password;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    private Student student;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    private Philantropist philantropist;
 
     public User() { }
 
