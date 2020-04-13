@@ -1,10 +1,16 @@
 package com.scholarship.model;
 
 import javax.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Locale;
+import java.time.ZoneId;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name="`scholarship`")
@@ -22,21 +28,27 @@ public class Scholarship implements Serializable {
     private String description;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date deadline;
+
+    @NotNull
     private int amount;
 
     public Scholarship() { }
 
-    public Scholarship(String title, String description, int amount) {
+    public Scholarship(String title, String description, int amount, String deadline) {
     	this.setTitle(title);
     	this.setDescription(description);
     	this.setAmount(amount);
+        this.setDeadline(deadline);
     }
 
-    public Scholarship(int id, String title, String description, int amount) {
+    public Scholarship(int id, String title, String description, int amount, String deadline) {
     	this.setId(id);
     	this.setTitle(title);
     	this.setDescription(description);
     	this.setAmount(amount);
+        this.setDeadline(deadline);
     }
 
     public int getId() {
@@ -49,6 +61,10 @@ public class Scholarship implements Serializable {
 
     public String getDescription() {
     	return description;
+    }
+
+    public Date getDeadline() {
+        return deadline;
     }
 
     public int getAmount() {
@@ -71,6 +87,14 @@ public class Scholarship implements Serializable {
     	this.amount = amount;
     }
 
+    public void setDeadline(String deadline) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate localDate = LocalDate.parse(deadline, formatter);
+        Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+        this.deadline = date;
+    }
+
     @Override
     public String toString() {
         return "Scholarship {" +
@@ -78,6 +102,7 @@ public class Scholarship implements Serializable {
                 ", Title='" + title + '\'' +
                 ", Description='" + description + '\'' +
                 ", Amount='" + amount + '\'' +
+                ", Deadline='" + deadline + '\'' +
                 '}';
     }
 
