@@ -12,15 +12,15 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "phone_number")
+    @Column(name = "phonenumber")
     @Size(max = 15)
-    private String phoneNumber;
+    private String phonenumber;
 
     @Size(max = 100)
     private String school;    
 
     @Size(max = 100)
-    private String studentId;
+    private String studentid;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -28,49 +28,57 @@ public class Student implements Serializable {
 
     public Student() { }
 
-    public Student(String phoneNumber, String school, String studentId) {
-    	this.setPhoneNumber(phoneNumber);
+    public Student(String phonenumber, String school, String studentid) {
+    	this.setPhonenumber(phonenumber);
         this.setSchool(school);
-        this.setStudentId(studentId);
+        this.setStudentid(studentid);
     }
 
-    public Student(int id, String phoneNumber, String school, String studentId) {
+    public Student(int id, String phonenumber, String school, String studentid) {
     	this.setId(id);
-    	this.setPhoneNumber(phoneNumber);
+    	this.setPhonenumber(phonenumber);
         this.setSchool(school);
-        this.setStudentId(studentId);
+        this.setStudentid(studentid);
     }
 
     public int getId() {
     	return id;
     }
 
-    public String getPhoneNumber() {
-    	return phoneNumber;
+    public String getPhonenumber() {
+    	return phonenumber;
     }
 
     public String getSchool() {
     	return school;
     }
 
-    public String getStudentId() {
-    	return studentId;
+    public String getStudentid() {
+    	return studentid;
+    }
+
+    public User getUser(){
+        return user;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public void setSchool(String school) {
     	this.school = school;
     }
 
-    public void setStudentId(String studentId) {
-    	this.studentId = studentId;
+    public void setStudentid(String studentid) {
+    	this.studentid = studentid;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
     
 }
