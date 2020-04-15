@@ -47,12 +47,12 @@
             <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
             <aside class="app-sidebar ">
                 <div class="sidebar-img">
-                    <a class="navbar-brand" href="index-2.html"><img alt="..." class="navbar-brand-img main-logo"
-                            th:src="@{/img/brand/logo-dark.png}"> <img alt="..." class="navbar-brand-img logo"
-                            th:src="@{/img/brand/logo.png}"></a>
+                    <a class="navbar-brand" href="/scholarships">
+                        <img th:src="@{/img/brand/scholarship.png}" alt="logo-img">
+                    </a>
                     <ul class="side-menu">
                         <li>
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i
+                            <a class="side-menu__item" data-toggle="slide" href="/scholarships"><i
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Dashboard</span></a>
                         </li>
@@ -136,19 +136,6 @@
                                                         <input class="form-control" type="date" name="deadline">
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-md-12">
-                                                    <div class="form-group ">
-                                                        <label>Enter Requirements</label>
-                                                        <select class="form-control select2 w-100" multiple="multiple"
-                                                            data-placeholder="Select all that apply">
-                                                            <option>Family Income less than 6 lacs P.A</option>
-                                                            <option>More than 90% in high school</option>
-                                                            <option>More than 8 CPI in College</option>
-                                                            <option>Does not have a block in a subject</option>
-                                                            <option>Student</option>
-                                                        </select>
-                                                    </div>
-                                                </div> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group ">
                                                         <label>Describe the Scholarship</label>
@@ -173,13 +160,12 @@
                                 <div class="row align-items-center justify-content-xl-between">
                                     <div class="col-xl-6">
                                         <div class="copyright text-center text-xl-left text-muted">
-                                            <p class="text-sm font-weight-500">Copyright 2018 © All Rights Reserved.
-                                                Adon Dashboard Template</p>
+                                            <p class="text-sm font-weight-500">Copyright 2020 © All Rights Reserved.
+                                                Scholarship Buddy</p>
                                         </div>
                                     </div>
                                     <div class="col-xl-6">
-                                        <p class="float-right text-sm font-weight-500">Designed &amp; Passion With: <a
-                                                href="#">Spurko</a></p>
+                                        <p class="float-right text-sm font-weight-500">Made by Tech noobs</p>
                                     </div>
                                 </div>
                             </footer>
@@ -201,9 +187,6 @@
     <script th:src="@{/js/popper.js}"></script>
     <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
-    <!-- Optional JS -->
-    <script th:src="@{/plugins/chart.js/dist/Chart.min.js}"></script>
-    <script th:src="@{/plugins/chart.js/dist/Chart.extension.js}"></script>
 
     <!-- Data tables -->
     <script th:src="@{/plugins/datatable/jquery.dataTables.min.js}"></script>

@@ -3,46 +3,70 @@ package com.scholarship.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 
 @Entity
 @Table(name="`application`")
 public class Application implements Serializable {
 
+    public Application() { }
+
+    public Application(String aboutyourself) {
+        this.setAboutyourself(aboutyourself);
+    }
+
+    public Application(int id, String aboutyourself) {
+        this.setId(id);
+        this.setAboutyourself(aboutyourself);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Size(max = 100)
-    private String answer;
-
-    public Application() { }
-
-    public Application(String answer) {
-    	this.setAnswer(answer);
-    }
-
-    public Application(int id, String answer) {
-    	this.setId(id);
-    	this.setAnswer(answer);
-    }
-
     public int getId() {
-    	return id;
-    }
-
-    public String getAnswer() {
-    	return answer;
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    @NotNull
+    private String aboutyourself;
+
+    public String getAboutyourself() {
+        return aboutyourself;
+    }
+
+    public void setAboutyourself(String aboutyourself) {
+        this.aboutyourself = aboutyourself;
+    }
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "scholarship_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Scholarship scholarship;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Student student;
+
+    public Scholarship getScholarship() {
+        return scholarship;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setScholarship(Scholarship scholarship) {
+        this.scholarship = scholarship;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
 }
