@@ -79,6 +79,14 @@ public class User implements Serializable {
         return password;
     }
 
+    public Philantropist getPhilanthropist(){
+        return philantropist;
+    }
+
+    public Student getStudent(){
+        return student;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -97,6 +105,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setPhilanthropist(Philantropist philantropist){
+        this.philantropist = philantropist;
+    }
+
+    public void setStudent(Student student){
+        this.student = student;
     }
 
     @Override

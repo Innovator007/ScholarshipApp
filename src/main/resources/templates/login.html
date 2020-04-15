@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org"
+ 	xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- Mirrored from spruko.com/demo/adon/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Dec 2018 09:46:44 GMT -->
 <head>
@@ -46,11 +49,11 @@
 					
 					<script>
 						function dropSelect(r){
-							if(r === 'philanthropist'){
-								$("#plcholder").attr({"placeholder":"Philanthropist ID", "name" : "p_id"});
+							if(r === 'philantropist'){
+								$("#plcholder").attr({"placeholder":"Philantropist ID", "name" : "philantropistid"});
 							}
 							if(r === 'student'){
-								$("#plcholder").attr({"placeholder":"email", "name":"s_id"});
+								$("#plcholder").attr({"placeholder":"Student ID", "name":"studentid"});
 							} 
 							$("#role").val(r);
 							$('.dropdown-toggle').html(r);
@@ -61,7 +64,7 @@
 					<div style="position: relative; width: 100%; margin-bottom: 10px" class="btn-group">
 						<button style="color: black	;"  type="button" class="btn login100-form-btn btn-default btn-pill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Role</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#" onclick="dropSelect('philanthropist')">Philanthropist</a>
+							<a class="dropdown-item" href="#" onclick="dropSelect('philantropist')">Philanthropist</a>
 							<a class="dropdown-item" href="#" onclick="dropSelect('student')">Student</a>
 						</div>
 					</div>

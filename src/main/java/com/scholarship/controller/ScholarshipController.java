@@ -72,5 +72,4 @@ public class ScholarshipController {
 		scholarshipRepository.save(scholarship);
 		return new ModelAndView("redirect:/scholarships");
 	}
-
 }

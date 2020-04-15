@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ScholarshipRepository extends JpaRepository<Scholarship, Integer> {
-
+	
     List<Scholarship> findByTitleContainingOrDescriptionContaining(String text, String textAgain);
     
     List<Scholarship> findByAmountGreaterThan(int amount);
