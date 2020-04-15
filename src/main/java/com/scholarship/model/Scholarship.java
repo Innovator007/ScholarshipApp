@@ -95,6 +95,7 @@ public class Scholarship implements Serializable {
         this.deadline = date;
     }
 
+
     @Override
     public String toString() {
         return "Scholarship {" +

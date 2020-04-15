@@ -33,9 +33,26 @@ public class ScholarshipController {
 		return new ModelAndView("createScholarshipForm");
 	}
 
-	@RequestMapping(value = "/scholarship/edit")
-	public ModelAndView scholarshipEdit() {
-		return new ModelAndView("editScholarship");
+	@RequestMapping(value = "/scholarship/edit/{id}")
+	public ModelAndView scholarshipEdit(@PathVariable String id) {
+		int scholarshipId = Integer.parseInt(id);
+		Scholarship scholarship = scholarshipRepository.findById(scholarshipId);
+		return new ModelAndView("editScholarship").addObject("scholarship", scholarship);
+	}
+
+	@RequestMapping(value = "/scholarship/edit/{id}", method = RequestMethod.POST)
+	public ModelAndView scholarshipEditPost(@PathVariable String id, @ModelAttribute Scholarship scholarship) {
+		int scholarshipId = Integer.parseInt(id);
+		Scholarship scholarshipData = scholarshipRepository.findById(scholarshipId);
+
+		scholarshipData.setTitle(scholarship.getTitle());
+		scholarshipData.setDescription(scholarship.getDescription());
+		scholarshipData.setDeadline(scholarship.getDeadline());
+		scholarshipData.setAmount(scholarship.getAmount());
+
+		scholarshipRepository.save(scholarshipData);
+
+		return new ModelAndView("redirect:/scholarships");
 	}
 
 	@RequestMapping(value = "/scholarship/view/{id}")

@@ -46,9 +46,6 @@ public class AuthController {
 		String philantropistId = loginpost.getPhilantropistid();
 		String password = loginpost.getPassword();
 
-		System.out.println("studentId:"+ studentId);
-		System.out.println("philantropistId:"+ philantropistId);
-
 		if(studentId != null){
 			return new ModelAndView("redirect:/scholarships");
 		}else {
@@ -75,9 +72,6 @@ public class AuthController {
 		String email = allUserFields.getEmail();
 		String password = allUserFields.getPassword();
 		String username = allUserFields.getUsername();
-
-		System.out.println("phoneNumber:"+ phoneNumber);
-		System.out.println("philantropistId:"+ philantropistId);
 
 		User user = new User(name, username, email, password);
 
