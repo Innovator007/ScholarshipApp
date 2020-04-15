@@ -42,7 +42,14 @@ public class ScholarshipController {
 		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
-		return new ModelAndView("createScholarshipForm");
+		User user = session.getAttribute("user");
+		if (user != null) {
+			if (user.getRole() == 1) {
+				return new ModelAndView("createScholarshipForm");
+			} else {
+				return new ModelAndView("redirect:/scholarships");
+			}
+		}
 	}
 
 	@RequestMapping(value = "/scholarship/edit")
@@ -84,7 +91,7 @@ public class ScholarshipController {
 		}
 		Scholarship scholarship = scholarshipRepository.findById(Integer.parseInt(id));
 		if (scholarship != null) {
-			return new ModelAndView("applyForm").addObject("scholarshipId", scholarship.getId());
+			return new ModelAndView("applyForm").addObject("scholarshipAction", "/scholarship/" + scholarship.getId() + "/apply");
 		} else {
 			return new ModelAndView("redirect:/scholarships");
 		}
@@ -103,7 +110,12 @@ public class ScholarshipController {
 				Scholarship scholarship = scholarshipRepository.findById(Integer.parseInt(id));
 				if (scholarship != null) {
 					application.setScholarship(scholarship);
-					applicationRepository.save(application);
+					Application prevApplication = applicationRepository.findByStudentAndScholarship(student, scholarship);
+					if (prevApplication == null) {
+						applicationRepository.save(application);
+					} else {
+						return new ModelAndView("redirect:/student/applications");
+					}
 				}
 			}
 		}

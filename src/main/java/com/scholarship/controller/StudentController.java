@@ -33,7 +33,7 @@ public class StudentController {
 				List<Application> applications = applicationRepository.findByStudent(student);
 				return new ModelAndView("appliedscholarship").addObject("applications", applications);
 			} else {
-				return new ModelAndView("redirect:/scholarships");
+				return new ModelAndView("redirect:/philantropist/scholarships");
 			}
 		}
 		return new ModelAndView("redirect:/login");

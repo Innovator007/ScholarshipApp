@@ -101,22 +101,19 @@
                                 </ol>
                             </div>
                             <div class="row">
-                                <th:block th:each="scholarship : ${scholarships}">
+                                <th:block th:each="applicationData : ${applications}">
                                 <div class="col-lg-12">
                                     <div class="card shadow">
                                         <div class="card-header">
-                                            <h2 class="mb-0" th:text="${scholarship.title}">...</h2>
+                                            <h2 class="mb-0" th:text="${applicationData.scholarship.title}">...</h2>
                                         </div>
                                         <div class="card-body">
-                                            <p th:text="${scholarship.description}">...</p>
-                                            <h4>Scholarship Amount: <span th:text="${scholarship.amount}">...</span></h4>
-                                            <h4>Application Deadline: 
-                                                <span th:text="${#dates.format(scholarship.deadline, 'dd MMM, yyyy')}"></span>
+                                            <p th:text="${applicationData.scholarship.description}">...</p>
+                                            <h4>Scholarship Amount: <span th:text="${applicationData.scholarship.amount}">...</span></h4>
+                                            <h4>Application Description: 
+                                                <span th:text="${applicationData.aboutyourself}"></span>
                                                 </h4>
-                                            <div>
-                                                <button type="button" class="mt-2 btn btn-info mt-1">View Details</button>
-                                                <button type="button" class="mt-2 btn btn-primary mt-1">Edit Scholarship</button>
-                                            </div>
+                                            <h4>Status: Applied</h4>
                                         </div>
                                     </div>
                                 </div>
