@@ -33,7 +33,6 @@ public class ScholarshipController {
 		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
-		System.out.println((User)session.getAttribute("user"));
 		List<Scholarship> scholarships = scholarshipRepository.findAll();
 		return new ModelAndView("scholarships").addObject("scholarships", scholarships);
 	}
@@ -84,7 +83,7 @@ public class ScholarshipController {
 			return new ModelAndView("redirect:/login");
 		}
 		Scholarship scholarship = scholarshipRepository.findById(Integer.parseInt(id));
-		if (scholarship) {
+		if (scholarship != null) {
 			return new ModelAndView("applyForm").addObject("scholarshipId", scholarship.getId());
 		} else {
 			return new ModelAndView("redirect:/scholarships");
@@ -99,10 +98,10 @@ public class ScholarshipController {
 		User user = (User)session.getAttribute("user");
 		if (user.getRole() == 2) {
 			Student student = user.getStudent();
-			if (student) {
+			if (student != null) {
 				application.setStudent(student);
 				Scholarship scholarship = scholarshipRepository.findById(Integer.parseInt(id));
-				if (scholarship) {
+				if (scholarship != null) {
 					application.setScholarship(scholarship);
 					applicationRepository.save(application);
 				}

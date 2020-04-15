@@ -1,6 +1,7 @@
 package com.scholarship.repository;
 
 import com.scholarship.model.Scholarship;
+import com.scholarship.model.Philantropist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,7 @@ public interface ScholarshipRepository extends JpaRepository<Scholarship, Intege
     Scholarship findById(int id);
 
     Scholarship deleteById(int id);
+
+    List<Scholarship> findByPhilantropist(Philantropist philantropist);
 
 }
