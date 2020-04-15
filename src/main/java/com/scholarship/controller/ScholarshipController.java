@@ -1,5 +1,8 @@
 package com.scholarship.controller;
 
+import com.scholarship.model.User;
+import com.scholarship.model.Student;
+import com.scholarship.model.Philantropist;
 import com.scholarship.model.Scholarship;
 import com.scholarship.repository.ScholarshipRepository;
 import org.springframework.http.MediaType;
@@ -11,6 +14,7 @@ import java.util.Map;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import com.scholarship.utils.CheckLoggedIn;
 
 @Controller
 public class ScholarshipController {
@@ -21,20 +25,17 @@ public class ScholarshipController {
 
 	@RequestMapping(value = "/scholarships")
 	public ModelAndView scholarshipIndex(HttpSession session) {
-		if(session == null){
-			return new ModelAndView("redirect:/login");
-		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
+		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
+		System.out.println((User)session.getAttribute("user"));
 		List<Scholarship> scholarships = scholarshipRepository.findAll();
 		return new ModelAndView("scholarships").addObject("scholarships", scholarships);
 	}
 
 	@RequestMapping(value = "/scholarship/create")
 	public ModelAndView scholarshipCreate(HttpSession session) {
-		if(session == null){
-			return new ModelAndView("redirect:/login");
-		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
+		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
 		return new ModelAndView("createScholarshipForm");
@@ -42,9 +43,7 @@ public class ScholarshipController {
 
 	@RequestMapping(value = "/scholarship/edit")
 	public ModelAndView scholarshipEdit(HttpSession session) {
-		if(session == null){
-			return new ModelAndView("redirect:/login");
-		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
+		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
 		return new ModelAndView("editScholarship");
@@ -52,9 +51,7 @@ public class ScholarshipController {
 
 	@RequestMapping(value = "/scholarship/view/{id}")
 	public ModelAndView scholarshipView(@PathVariable String id, HttpSession session) {
-		if(session == null){
-			return new ModelAndView("redirect:/login");
-		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
+		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
 		int scholarshipId = Integer.parseInt(id);
@@ -64,12 +61,15 @@ public class ScholarshipController {
 
 	@RequestMapping(value = "/scholarship/create", method = RequestMethod.POST)
 	public ModelAndView scholarshipCreatePost(@ModelAttribute Scholarship scholarship, HttpSession session) {
-		if(session == null){
-			return new ModelAndView("redirect:/login");
-		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
+		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
-		scholarshipRepository.save(scholarship);
+		User user = (User)session.getAttribute("user");
+		if (user.getRole() == 1) {
+			Philantropist philantropist = user.getPhilantropist();
+			scholarship.setPhilantropist(philantropist);
+			scholarshipRepository.save(scholarship);
+		}
 		return new ModelAndView("redirect:/scholarships");
 	}
 }

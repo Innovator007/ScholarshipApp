@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -32,6 +32,9 @@ public class User implements Serializable {
     @Size(max = 20)
     private String password;
 
+    @NotNull
+    private int role;
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
@@ -44,11 +47,12 @@ public class User implements Serializable {
 
     public User() { }
 
-    public User(String name, String username, String email, String password) {
+    public User(String name, String username, String email, String password, int role) {
     	this.setName(name);
         this.setUsername(username);
         this.setEmail(email);
         this.setPassword(password);
+        this.setRole(role);
     }
 
     public User(int id, String name, String username, String email, String password) {
@@ -57,6 +61,7 @@ public class User implements Serializable {
         this.setUsername(username);
         this.setEmail(email);
         this.setPassword(password);
+        this.setRole(role);
     }
 
     public int getId() {
@@ -79,12 +84,16 @@ public class User implements Serializable {
         return password;
     }
 
-    public Philantropist getPhilanthropist(){
+    public Philantropist getPhilantropist(){
         return philantropist;
     }
 
     public Student getStudent(){
         return student;
+    }
+
+    public int getRole() {
+        return role;
     }
 
     public void setId(int id) {
@@ -115,14 +124,8 @@ public class User implements Serializable {
         this.student = student;
     }
 
-    @Override
-    public String toString() {
-        return "User {" +
-                "Id=" + id +
-                ", Name='" + name + '\'' +
-                ", Email='" + email + '\'' +
-                ", Username='" + username + '\'' +
-                '}';
+    public void setRole(int role) {
+        this.role = role;
     }
 
 }

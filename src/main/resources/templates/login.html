@@ -47,32 +47,8 @@
 						Member Login
 					</span>
 					
-					<script>
-						function dropSelect(r){
-							if(r === 'philantropist'){
-								$("#plcholder").attr({"placeholder":"Philantropist ID", "name" : "philantropistid"});
-							}
-							if(r === 'student'){
-								$("#plcholder").attr({"placeholder":"Student ID", "name":"studentid"});
-							} 
-							$("#role").val(r);
-							$('.dropdown-toggle').html(r);
-  						}
-					</script>
-
-					<input type="hidden" id="role" name="role"></input>
-					<div style="position: relative; width: 100%; margin-bottom: 10px" class="btn-group">
-						<button style="color: black	;"  type="button" class="btn login100-form-btn btn-default btn-pill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Role</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#" onclick="dropSelect('philantropist')">Philanthropist</a>
-							<a class="dropdown-item" href="#" onclick="dropSelect('student')">Student</a>
-						</div>
-					</div>
-					
-					
-
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" id="plcholder" placeholder="ID">
+						<input class="input100" type="text" name="email" id="plcholder" placeholder="Email ID">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>

@@ -16,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import com.scholarship.utils.CheckLoggedIn;
 
 @Controller
 public class AuthController {
@@ -31,43 +34,59 @@ public class AuthController {
 
 
 	@RequestMapping(value = "/")
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		return new ModelAndView("redirect:/login");
 	}
 
 	@RequestMapping(value = "/login")
-	public ModelAndView login() {
+	public ModelAndView login(HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		return new ModelAndView("login");
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView postLogin(@ModelAttribute Login loginpost) {
-		String studentId = loginpost.getStudentid();
-		String philantropistId = loginpost.getPhilantropistid();
-		String password = loginpost.getPassword();
-
-		System.out.println("studentId:"+ studentId);
-		System.out.println("philantropistId:"+ philantropistId);
-
-		if(studentId != null){
+	public ModelAndView postLogin(@ModelAttribute Login loginpost, HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/scholarships");
-		}else {
-			return new ModelAndView("redirect:/scholarship/create");
+		}
+		String email = loginpost.getEmail();
+		String password = loginpost.getPassword();
+		User user = userRepository.findByEmailAndPassword(email, password);
+		if (user != null) {
+			session.setAttribute("isLoggedIn", true);
+			session.setAttribute("user", user);
+			return new ModelAndView("redirect:/scholarships");
+		} else {
+			return new ModelAndView("redirect:/login");
 		}
 	}	
 
 	@RequestMapping(value = "/signup")
-	public ModelAndView signup() {
+	public ModelAndView signup(HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		return new ModelAndView("signupselect");
 	}
 
 	@RequestMapping(value = "/signup/philanthropist")
-	public ModelAndView signupPhilantropist() {
+	public ModelAndView signupPhilantropist(HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		return new ModelAndView("philanthropistsignup");
 	}
 
 	@RequestMapping(value = "/signup/philanthropist", method = RequestMethod.POST)
-	public ModelAndView postSignupPhilantropist(@ModelAttribute AllUserFields allUserFields) {
+	public ModelAndView postSignupPhilantropist(@ModelAttribute AllUserFields allUserFields, HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		String phoneNumber = allUserFields.getPhonenumber();
 		String institute = allUserFields.getInstitute();
 		String philantropistId = allUserFields.getPhilantropistid();
@@ -75,31 +94,29 @@ public class AuthController {
 		String email = allUserFields.getEmail();
 		String password = allUserFields.getPassword();
 		String username = allUserFields.getUsername();
-
-		System.out.println("phoneNumber:"+ phoneNumber);
-		System.out.println("philantropistId:"+ philantropistId);
-
-		User user = new User(name, username, email, password);
-
+		int role = 1;
+		User user = new User(name, username, email, password, role);
 		Philantropist philanthropist = new Philantropist(phoneNumber, institute, philantropistId);
-
 		user.setPhilanthropist(philanthropist);
-
 		philanthropist.setUser(user);
-
 		userRepository.save(user);
-
 
 		return new ModelAndView("redirect:/login");
 	}
 
 	@RequestMapping(value = "/signup/student")
-	public ModelAndView signupStudent() {
+	public ModelAndView signupStudent(HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		return new ModelAndView("studentsignup");
 	}
 
 	@RequestMapping(value = "/signup/student", method = RequestMethod.POST)
-	public ModelAndView postSignupStudent(@ModelAttribute AllUserFieldsStudent allUserFieldsStudent) {
+	public ModelAndView postSignupStudent(@ModelAttribute AllUserFieldsStudent allUserFieldsStudent, HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		String phoneNumber = allUserFieldsStudent.getPhonenumber();
 		String school = allUserFieldsStudent.getSchool();
 		String studentId = allUserFieldsStudent.getStudentid();
@@ -107,26 +124,21 @@ public class AuthController {
 		String email = allUserFieldsStudent.getEmail();
 		String password = allUserFieldsStudent.getPassword();
 		String username = allUserFieldsStudent.getUsername();
-
-		System.out.println("phoneNumber:"+ phoneNumber);
-		System.out.println("studentId:"+ studentId);
-
-		User user = new User(name, username, email, password);
-
+		int role = 2;
+		User user = new User(name, username, email, password, role);
 		Student student = new Student(phoneNumber, school, studentId);
-
 		user.setStudent(student);
-
 		student.setUser(user);
-
 		userRepository.save(user);
-
 
 		return new ModelAndView("redirect:/login");
 	}
 
 	@RequestMapping(value = "/signup/select", method = RequestMethod.POST)
-	public ModelAndView postSignup(@ModelAttribute SignupMessage message) {
+	public ModelAndView postSignup(@ModelAttribute SignupMessage message, HttpSession session) {
+		if(CheckLoggedIn.isLoggedIn(session)){
+			return new ModelAndView("redirect:/scholarships");
+		}
 		String role = message.getRole();
 		String redirectUrl = "";
 

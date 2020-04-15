@@ -3,7 +3,7 @@ package com.scholarship.controller;
 import com.scholarship.model.Scholarship;
 import com.scholarship.model.Application;
 import com.scholarship.repository.ScholarshipRepository;
-import com.scholarship.repository.ApplicationRepository;
+//import com.scholarship.repository.ApplicationRepository;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +20,8 @@ public class ApplicationController {
 	@Autowired
     ScholarshipRepository scholarshipRepository;
 
-    @Autowired
-    ApplicationRepository applicationRepository;
+    // @Autowired
+    // ApplicationRepository applicationRepository;
 
 
 	@RequestMapping(value = "/scholarship/{id}/apply")
@@ -31,7 +31,7 @@ public class ApplicationController {
 		}else if ((session.getAttribute("isLoggedIn") == null) || (!(Boolean)session.getAttribute("isLoggedIn"))){
 			return new ModelAndView("redirect:/login");
 		}
-		Scholarship scholarships = scholarshipRepository.findById(id);
+		Scholarship scholarship = scholarshipRepository.findById(Integer.parseInt(id));
 		return new ModelAndView("applyForm").addObject("scholarship", scholarship);
 	}
 

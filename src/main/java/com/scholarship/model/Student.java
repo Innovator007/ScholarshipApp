@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Student implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "phonenumber")
@@ -81,4 +81,11 @@ public class Student implements Serializable {
         this.user = user;
     }
     
+    @Override
+    public String toString() {
+        return "Student {" +
+            "StudentId: " + studentid + '\'' +
+            "}";    
+    }
+
 }

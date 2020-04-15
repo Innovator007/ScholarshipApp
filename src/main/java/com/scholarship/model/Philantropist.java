@@ -3,6 +3,7 @@ package com.scholarship.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="`philantropist`")
@@ -24,7 +25,7 @@ public class Philantropist implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public int getId() {
@@ -81,6 +82,15 @@ public class Philantropist implements Serializable {
         this.user = user;
     }
 
+    @OneToMany(mappedBy = "philantropist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Scholarship> scholarships;
 
+    public Set<Scholarship> getScholarships() {
+        return scholarships;
+    }
+
+    public void setScholarships(Set<Scholarship> scholarships) {
+        this.scholarships = scholarships;
+    }
   
 }

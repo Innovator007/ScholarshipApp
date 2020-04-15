@@ -2,24 +2,15 @@ package com.scholarship.model;
 
 public class Login {
 
-    private String studentid;
-    private String philantropistid;
+    private String email;
     private String password;
 
-    public String getStudentid() {
-        return studentid;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
-    }
-
-    public String getPhilantropistid() {
-        return philantropistid;
-    }
-
-    public void setPhilantropistid(String philantropistid) {
-        this.philantropistid = philantropistid;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

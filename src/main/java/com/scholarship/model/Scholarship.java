@@ -1,6 +1,9 @@
 package com.scholarship.model;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 public class Scholarship implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -33,6 +36,11 @@ public class Scholarship implements Serializable {
 
     @NotNull
     private int amount;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "philantropist_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Philantropist philantropist;
 
     public Scholarship() { }
 
@@ -93,6 +101,16 @@ public class Scholarship implements Serializable {
         LocalDate localDate = LocalDate.parse(deadline, formatter);
         Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
         this.deadline = date;
+    }
+
+    @JsonIgnore
+    public Philantropist getPhilantropist() {
+        return philantropist;
+    }
+
+    @JsonIgnore
+    public void setPhilantropist(Philantropist philantropist) {
+        this.philantropist = philantropist;
     }
 
     @Override
