@@ -2,6 +2,8 @@ package com.scholarship.controller;
 
 import com.scholarship.model.Scholarship;
 import com.scholarship.repository.ScholarshipRepository;
+import com.scholarship.model.Application;
+import com.scholarship.repository.ApplicationRepository;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class ScholarshipController {
    
 	@Autowired
     ScholarshipRepository scholarshipRepository;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
 
 
 	@RequestMapping(value = "/scholarships")
@@ -43,6 +48,17 @@ public class ScholarshipController {
 	@RequestMapping(value = "/scholarship/create", method = RequestMethod.POST)
 	public ModelAndView scholarshipCreatePost(@ModelAttribute Scholarship scholarship) {
 		scholarshipRepository.save(scholarship);
+		return new ModelAndView("redirect:/scholarships");
+	}
+
+	@RequestMapping(value = "/scholarship/apply")
+	public ModelAndView scholarshipApply() {
+		return new ModelAndView("applyForm");
+	}
+
+	@RequestMapping(value = "/scholarship/apply", method = RequestMethod.POST)
+	public ModelAndView scholarshipApplyPost(@ModelAttribute Application application) {
+		applicationRepository.save(application);
 		return new ModelAndView("redirect:/scholarships");
 	}
 }
