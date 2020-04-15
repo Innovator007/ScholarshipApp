@@ -31,7 +31,7 @@ public class StudentController {
 			if (user.getRole() == 2) {
 				Student student = user.getStudent();
 				List<Application> applications = applicationRepository.findByStudent(student);
-				return new ModelAndView("appliedscholarship").addObject("applications", applications);
+				return new ModelAndView("appliedscholarship").addObject("applications", applications).addObject("role", "student");
 			} else {
 				return new ModelAndView("redirect:/philantropist/scholarships");
 			}

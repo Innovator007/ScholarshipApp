@@ -14,6 +14,8 @@ import java.util.Locale;
 import java.time.ZoneId;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 @Entity
 @Table(name="`scholarship`")
@@ -28,6 +30,7 @@ public class Scholarship implements Serializable {
     private String title;
 
     @NotNull
+    @Size(max = 1000)
     private String description;
 
     @NotNull
@@ -71,6 +74,13 @@ public class Scholarship implements Serializable {
     	return description;
     }
 
+    public String getDeadlineString() {
+        String pattern = "yyyy-MM-dd";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String stringDeadline = df.format(deadline);
+        return stringDeadline;
+    }
+
     public Date getDeadline() {
         return deadline;
     }
@@ -102,7 +112,7 @@ public class Scholarship implements Serializable {
         Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
         this.deadline = date;
     }
-
+    
     @JsonIgnore
     public Philantropist getPhilantropist() {
         return philantropist;

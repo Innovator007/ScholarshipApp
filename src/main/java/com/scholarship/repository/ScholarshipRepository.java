@@ -22,4 +22,6 @@ public interface ScholarshipRepository extends JpaRepository<Scholarship, Intege
 
     List<Scholarship> findByPhilantropist(Philantropist philantropist);
 
+    Scholarship findByIdAndPhilantropist(int id, Philantropist philantropist);
+
 }

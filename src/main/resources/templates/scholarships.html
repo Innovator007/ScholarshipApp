@@ -52,28 +52,23 @@
                     </a>
                     <ul class="side-menu">
                         <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/scholarships"><i
+                            <a class="side-menu__item" th:href="@{/scholarships}"><i
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Scholarships</span></a>
                         </li>
                        
-                        <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/student/application"><i
+                        <li th:if="${role == 'student'}">
+                            <a class="side-menu__item" th:href="@{/student/applications}"><i
                                     class="side-menu__icon fe fe-home"></i><span
-                                    class="side-menu__label">Application</span></a>
+                                    class="side-menu__label">Applications</span></a>
                         </li>
-                        <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/scholarships"><i
-                                    class="side-menu__icon fe fe-home"></i><span
-                                    class="side-menu__label">All Scholarships</span></a>
-                        </li>
-                        <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/scholarships/philanthropist"><i
+                        <li th:if="${role == 'philantropist'}">
+                            <a class="side-menu__item" th:href="@{/philantropist/scholarships}"><i
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Your Scholarships</span></a>
                         </li>
-                        <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/scholarship/create"><i
+                        <li th:if="${role == 'philantropist'}">
+                            <a class="side-menu__item" th:href="@{/scholarship/create}"><i
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Create Scholarship</span></a>
                         </li>
@@ -123,14 +118,17 @@
                                             <h2 class="mb-0" th:text="${scholarship.title}">...</h2>
                                         </div>
                                         <div class="card-body">
-                                            <p th:text="${scholarship.description}">...</p>
+                                            <p th:text="${#strings.abbreviate(scholarship.description,50)}">...</p>
                                             <h4>Scholarship Amount: <span th:text="${scholarship.amount}">...</span></h4>
                                             <h4>Application Deadline: 
                                                 <span th:text="${#dates.format(scholarship.deadline, 'dd MMM, yyyy')}"></span>
                                                 </h4>
                                             <div>
-                                                <button type="button" class="mt-2 btn btn-info mt-1">View Details</button>
-                                                <button type="button" class="mt-2 btn btn-primary mt-1">Apply for Scholarship</button>
+                                                <a th:href="@{/scholarship/} + ${scholarship.id} + @{/view}"><button type="button" class="mt-2 btn btn-info mt-1">View Details</button></a>
+                                                <span th:if="${role == 'student'}">
+                                                <a th:href="@{/scholarship/} + ${scholarship.id} + @{/apply}">
+                                                <button type="button" class="mt-2 btn btn-primary mt-1">Apply for Scholarship</button></a>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

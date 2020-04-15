@@ -52,17 +52,26 @@
                     </a>
                     <ul class="side-menu">
                         <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/scholarships"><i
+                            <a class="side-menu__item" th:href="@{/scholarships}"><i
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Scholarships</span></a>
                         </li>
                        
-                        <li>
-                            <a class="side-menu__item" data-toggle="slide" href="/student/application"><i
+                        <li th:if="${role == 'student'}">
+                            <a class="side-menu__item" th:href="@{/student/applications}"><i
                                     class="side-menu__icon fe fe-home"></i><span
-                                    class="side-menu__label">Application</span></a>
+                                    class="side-menu__label">Applications</span></a>
                         </li>
-                   
+                        <li th:if="${role == 'philantropist'}">
+                            <a class="side-menu__item" th:href="@{/philantropist/scholarships}"><i
+                                    class="side-menu__icon fe fe-home"></i><span
+                                    class="side-menu__label">Your Scholarships</span></a>
+                        </li>
+                        <li th:if="${role == 'philantropist'}">
+                            <a class="side-menu__item" th:href="@{/scholarship/create}"><i
+                                    class="side-menu__icon fe fe-home"></i><span
+                                    class="side-menu__label">Create Scholarship</span></a>
+                        </li>
 
                     </ul>
                 </div>
@@ -95,7 +104,7 @@
                         <!-- Page content -->
                         <div class="container-fluid pt-8">
                             <div class="page-header mt-0 p-3">
-                                <h3 class="mb-sm-0">Scholarship Title</h3>
+                                <h3 th:text="${scholarship.title}" class="mb-sm-0">...</h3>
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a href="#"><i class="fe fe-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Scholarship Detail</li>
@@ -105,43 +114,24 @@
                                 <div class="col-lg-12">
                                     <div class="card shadow">
                                         <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                            <h4>Scholarship Amount: $80000</h4>
-                                            <h4>Application Deadline: 5th May, 2020</h4>
-                                            <h4>Applications: 207</h4>
-                                            <h3>Scholarship Requirements:</h3>
-                                            <ul>
-                                                <li>Requirement 1</li>
-                                                <li>Requirement 2</li>
-                                                <li>Requirement 3</li>
-                                                <li>Requirement 4</li>
-                                                <li>Requirement 5</li>
-                                            </ul>
-                                            <div>
-                                                <button type="button" class="mt-2 btn btn-primary mt-1">Apply for Scholarship</button>
+                                            <p th:text="${scholarship.description}">...</p>
+                                            <h4>Scholarship Amount: <span th:text="${scholarship.amount}"></span></h4>
+                                           <h4>Application Deadline: 
+                                                <span th:text="${#dates.format(scholarship.deadline, 'dd MMM, yyyy')}"></span>
+                                                </h4>
+                                            <h4>Applications: <span th:text="${totalApplication}">...</span></h4>
+                                            <hr>
+                                            <h4>Philantropist Detail</h4>
+                                            <h4>Institute: <span th:text="${scholarship.philantropist.institute}">...</span></h4>
+                                            <h4>Name: <span th:text="${scholarship.philantropist.user.name}">...</span></h4>
+                                            <h4>Email: <span th:text="${scholarship.philantropist.user.email}">...</span></h4>
+                                            <div th:if="${role == 'student'}">
+                                                <a th:href="@{/scholarship/} + ${scholarship.id} + @{/apply}"><button type="button" class="mt-2 btn btn-primary mt-1">Apply for Scholarship</button></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <footer class="footer">
-                                <div class="row align-items-center justify-content-xl-between">
-                                    <div class="col-xl-6">
-                                        <div class="copyright text-center text-xl-left text-muted">
-                                            <p class="text-sm font-weight-500">Copyright 2020 © All Rights Reserved.
-                                                Scholarship Buddy</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <p class="float-right text-sm font-weight-500">Made by Tech noobs</p>
-                                    </div>
-                                </div>
-                            </footer>
                         </div>
                     </div>
                 </div>

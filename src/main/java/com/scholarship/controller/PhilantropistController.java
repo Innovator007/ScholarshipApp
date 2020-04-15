@@ -25,12 +25,13 @@ public class PhilantropistController {
 		if(!CheckLoggedIn.isLoggedIn(session)){
 			return new ModelAndView("redirect:/login");
 		}
+		String role = "";
 		User user = (User)session.getAttribute("user");
 		if (user != null) {
 			if (user.getRole() == 1) {
 				Philantropist philantropist = user.getPhilantropist();
 				List<Scholarship> scholarships = scholarshipRepository.findByPhilantropist(philantropist);
-				return new ModelAndView("philantropistscholarship").addObject("scholarships", scholarships);
+				return new ModelAndView("philantropistscholarship").addObject("scholarships", scholarships).addObject("role", "philantropist");
 			} else {
 				return new ModelAndView("redirect:/scholarships");
 			}
