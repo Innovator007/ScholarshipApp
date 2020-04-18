@@ -3,6 +3,7 @@ package com.scholarship.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="`student`")
@@ -25,6 +26,9 @@ public class Student implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Application> applications;
 
     public Student() { }
 
@@ -81,6 +85,14 @@ public class Student implements Serializable {
         this.user = user;
     }
     
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
+    }
+
     @Override
     public String toString() {
         return "Student {" +

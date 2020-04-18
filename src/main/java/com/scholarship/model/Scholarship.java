@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import java.util.Locale;
 import java.time.ZoneId;
 import java.time.LocalDate;
@@ -44,6 +45,10 @@ public class Scholarship implements Serializable {
     @JoinColumn(name = "philantropist_id", nullable=false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Philantropist philantropist;
+
+    @OneToMany(mappedBy = "scholarship", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Application> applications;
+
 
     public Scholarship() { }
 
@@ -121,6 +126,14 @@ public class Scholarship implements Serializable {
     @JsonIgnore
     public void setPhilantropist(Philantropist philantropist) {
         this.philantropist = philantropist;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 
     @Override

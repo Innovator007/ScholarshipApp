@@ -72,6 +72,12 @@
                                     class="side-menu__icon fe fe-home"></i><span
                                     class="side-menu__label">Create Scholarship</span></a>
                         </li>
+                        <li>
+                            <a  onclick="logout()" class="side-menu__item" href="#">
+                                <i class="side-menu__icon fe fe-home"></i>
+                                <span class="side-menu__label">Logout</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
@@ -90,6 +96,14 @@
 
                                 <!-- User -->
                                 <ul class="navbar-nav align-items-center ">
+                                    <form id="logout" action="/logout" method="POST">
+                                    </form>
+                                    <li class="nav-item d-none d-md-flex">
+                                        <div onclick="logout()" class="dropdown d-none d-md-flex mt-2 ">
+                                            <a class="nav-link full-screen-link  pr-0"><i
+                                                    class="fe fe-log-out"></i></a>
+                                        </div>
+                                    </li>
                                     <li class="nav-item d-none d-md-flex">
                                         <div class="dropdown d-none d-md-flex mt-2 ">
                                             <a class="nav-link full-screen-link  pr-0"><i
@@ -144,6 +158,12 @@
     </div>
     <!-- Back to top -->
     <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+    <script type="text/javascript">
+        function logout() {
+            document.getElementById("logout").submit();
+        }
+    </script>
 
     <!-- Adon Scripts -->
 

@@ -150,4 +150,12 @@ public class AuthController {
 
       	return new ModelAndView("redirect:"+redirectUrl);
 	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ModelAndView logout(HttpSession session) {
+		if (CheckLoggedIn.isLoggedIn(session)) {
+			session.invalidate();
+		}
+		return new ModelAndView("redirect:/login");
+	}
 }
